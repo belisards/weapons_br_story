@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Brazilians take up arms</title>
+    <meta name="description" content="After regulatory changes made by the president Jair Bolsonaro, requests for weapon licenses increase drastically in Brazil." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      #scrolly {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        /* background-color: #f3f3f3; */
+        padding: 1rem;
+      }
+
+      #scrolly > * {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+      }
+
+      article {
+        position: relative;
+        padding: 0 1rem;
+        max-width: 40rem;
+      }
+
+      .sticky-thing {
+        position: -webkit-sticky;
+        position: sticky;
+        width: 100%;
+        margin: 0;
+        /* background-color: #8a8a8a; */
+        z-index: 0;
+        top: 12.5vh;
+        height: 75vh;
+        /* Center everything inside */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .step {
+        margin: 0 auto 2rem auto;
+        /* background-color: #3b3b3b; */
+        opacity:0;
+      }
+
+      .step:last-child {
+        margin-bottom: 0;
+      }
+
+      .step.is-active {
+        /* background-color: goldenrod; */
+        opacity:100;
+        color: #3b3b3b;
+      }
+
+      .step p {
+        text-align: center;
+        padding: 1rem;
+        font-size: 1.5rem;}
+        
+      .flourish-chart{
+        width: 100%;
+      }
+
+      .intro__hed{
+        margin-bottom: 2rem;
+      }
+
+      #intro img{
+        width: 40rem;
+        margin-top:2rem;
+      }
+
+      .linechart{
+        margin-top: 30rem;
+      }
+
+      footer {
+        line-height: 2rem;
+        margin-left: 2rem;
+      }
+
+      .subtitle   {
+        font-weight: lighter;
+      }
+
+      #intro img{
+        margin-bottom: 2rem;
+      }
+      .intro__dek p{
+        font-weight: lighter;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <section id="intro">
+        <h1 class="intro__hed">Brazilians take up arms</h1>
+        <p class="intro__dek">
+          <p class="subtitle">After regulatory changes made by the president Jair Bolsonaro, requests for weapon licenses increase drastically in Brazil.</p>
+        <img src="coisaruim.jpeg">
+        <p>The political crisis in Brazil is escalating quickly.</p>
+        <p>Last week, the far-right president Jair Bolsonaro attacked the major electoral court, claiming that he could overpass constitutional laws and use arms if defeated in the next year's election. Apprehensions regarding a tropical “Capitol attack” in the country's capital Brasília spread among political analysts. </p>
+        <p>Bolsonaro is well-known for its relations with police militias, and during his electoral campaign promised to arm the population. There have been many changes, indeed. Currently, every Brazilian can have up to 6 (or even 8 in some cases) firearms. It is also easier to request and get a weapon license due to regulatory changes.</p>
+        <p>But how these changes affect the requests for new licenses?</p>
+      </section>
+
+      <section id="scrolly">
+        <article>
+          <div class="step" data-step="1">
+            <p>According to this new analysis, the number of new weapon licenses issued increased drastically since Bolsonaro's election. The National Weapons System (SINARM) doesn't publish open data regularly</p>
+            <p>However, due to the Brazil's Information Access Law (like the FOIA in U.S.), the Federal Police have been providing tables with aggregated numbers by state, category and month, from 2009 to June 2021</p>
+          </div>
+          <div class="step" data-step="2">
+            <p>Military forces don't use this same system, but the regional public security administration do. While there is an increase both in licenses for individuals and governmental agencies, last year the gap between both increased even more.</p>
+            <p>Licenses for citizen increased 57% from 2019 to 2020. Categories associated with the public administration had an increase of only 9%.</p>   
+          </div>
+          <div class="step" data-step="3">
+           <p> During the three years and a half of Bolsonaro's administration as president, the amount of weapon licenses issued for citizens was equivalent to those of the last 9 years summed up.</p>
+            <p> Between 2019 and June 2021, the Federal Police counts 251,829 new licenses. From 2009 to 2018, the time series shows 240,917 registers.</p>
+          </div>
+        </article>
+
+        <div class="sticky-thing">
+          <div class="flourish-embed flourish-chart linechart" data-src="visualisation/6952459"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+
+          <div class="flourish-embed flourish-chart timeseries" data-src="visualisation/6952310"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+
+        </div>
+      </section>
+
+      <div>
+   
+    </div>
+      <section id="outro"></section>
+    </main>
+    <footer>
+      <p><b>by Adriano Belisario - <a href="https://twitter.com">@belisards</a></b></p>
+      <p>Code and data: <a href="https://github.com/belisards/weapons_br">https://github.com/belisards/weapons_br</p></a>
+      <p>Image source: Jair Bolsonaro's profile in Facebook</p>
+      </footer>
+    <!-- <div class='debug'></div> -->
+    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+    <script>
+      // using d3 for convenience
+      var main = document.querySelector("main");
+      var scrolly = main.querySelector("#scrolly");
+      var sticky = scrolly.querySelector(".sticky-thing");
+      var article = scrolly.querySelector("article");
+      var steps = article.querySelectorAll(".step");
+      var chart = document.querySelector('.linechart');
+      var timeseries = document.querySelector('.timeseries');
+
+      chart.setAttribute("hidden","");
+      timeseries.setAttribute("hidden","");
+
+      // initialize the scrollama
+      var scroller = scrollama();
+
+      // scrollama event handlers
+      function handleStepEnter(response) {
+        // response = { element, direction, index }
+        var el = response.element;
+        const index = response.index
+        if (index === 0) {
+          chart.setAttribute("hidden","");
+          timeseries.removeAttribute("hidden","");
+        } else if (index === 1) {
+          chart.setAttribute("hidden","");
+          timeseries.removeAttribute("hidden","");
+        } else if (index === 2) {
+          chart.removeAttribute("hidden","");
+          timeseries.setAttribute("hidden","");
+        } 
+        // remove is-active from all steps
+        // then add is-active to this step
+        steps.forEach(step => step.classList.remove('is-active'));
+        el.classList.add('is-active');
+
+        // update graphic based on step
+        // sticky.querySelector("p").innerText = el.dataset.step;
+      }
+
+      function init() {
+        scroller
+          .setup({
+            step: "#scrolly article .step",
+            offset: 0.33,
+            debug: false
+          })
+          .onStepEnter(handleStepEnter);
+
+        // setup resize event
+        window.addEventListener("resize", scroller.resize);
+      }
+
+      // kick things off
+      init();
+    </script>
+  </body>
+</html>
